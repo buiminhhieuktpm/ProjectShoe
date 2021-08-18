@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.project.entity.Brand;
-import com.project.entity.Category;
 
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
 	// Query tim kieu theo ten

@@ -1,15 +1,13 @@
 package com.project.auth;
 
-import com.project.entity.User;
-import com.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import com.project.entity.User;
+import com.project.repository.UserRepository;
 
 @Service
 public class CustomerUserDetailService implements UserDetailsService {
