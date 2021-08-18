@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.project.entity.Role;
 import com.project.entity.User;
 import com.project.service.BannerService;
 import com.project.service.ProductService;
@@ -57,5 +58,5 @@ public class BaseController {
 	public String showProduct(Model model, @PathVariable Integer id) {
 		return "user/show-product";
 	}
-
+	
 }
