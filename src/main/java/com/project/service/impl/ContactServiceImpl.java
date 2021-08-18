@@ -1,17 +1,16 @@
 package com.project.service.impl;
 
-import com.project.entity.Contact;
-import com.project.repository.ContactRepository;
-import com.project.service.ContactService;
-import com.project.service.sendmail.SendMail;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.List;
-import java.util.Optional;
+import com.project.entity.Contact;
+import com.project.repository.ContactRepository;
+import com.project.service.ContactService;
+import com.project.service.sendmail.SendMail;
 
 @Service
 public class ContactServiceImpl implements ContactService {

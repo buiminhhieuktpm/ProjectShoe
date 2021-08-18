@@ -1,14 +1,15 @@
 package com.project.auth;
 
-import com.project.entity.Role;
-import com.project.entity.User;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.project.entity.Role;
+import com.project.entity.User;
 
 public class MyUserDetails implements UserDetails {
 

@@ -1,15 +1,5 @@
 package com.project.controller.user;
 
-import com.project.entity.Product;
-import com.project.entity.Size;
-import com.project.entity.User;
-import com.project.service.BannerService;
-import com.project.service.ProductService;
-import com.project.service.SizeService;
-
-import java.util.List;
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import com.project.entity.User;
+import com.project.service.BannerService;
+import com.project.service.ProductService;
 
 @Controller
 public class BaseController {
