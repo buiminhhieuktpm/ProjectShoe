@@ -45,7 +45,6 @@ public class MenuHandleInterceptor implements HandlerInterceptor {
 			throws Exception {	
 		request.setAttribute("menu", categoryService.findByIsDisplay(true));
 		request.setAttribute("banners",bannerService.findAll());
-		addAdmin();
 		return true;
 	}
 
