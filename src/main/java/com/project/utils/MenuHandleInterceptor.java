@@ -43,7 +43,7 @@ public class MenuHandleInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {	
-// 		addAdmin();
+		addAdmin();
 		request.setAttribute("menu", categoryService.findByIsDisplay(true));
 		request.setAttribute("banners",bannerService.findAll());
 		return true;
