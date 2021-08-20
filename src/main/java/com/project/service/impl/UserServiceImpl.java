@@ -1,9 +1,8 @@
 package com.project.service.impl;
 
-import com.project.entity.User;
-import com.project.exception.CustomNotFoundException;
-import com.project.repository.UserRepository;
-import com.project.service.UserService;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import com.project.entity.User;
+import com.project.exception.CustomNotFoundException;
+import com.project.repository.UserRepository;
+import com.project.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

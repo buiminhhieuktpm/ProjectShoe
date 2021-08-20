@@ -1,21 +1,33 @@
 package com.project.controller.user;
 
-import com.project.auth.MyUserDetails;
-import com.project.entity.*;
-import com.project.repository.CartDetailRepository;
-import com.project.repository.CartRepository;
-import com.project.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.*;
+import com.project.entity.Cart;
+import com.project.entity.CartDetail;
+import com.project.entity.Product;
+import com.project.entity.Size;
+import com.project.entity.User;
+import com.project.service.CartDetailService;
+import com.project.service.CartService;
+import com.project.service.ProductService;
+import com.project.service.SizeService;
+import com.project.service.UserService;
 
 @Controller
 @RequestMapping(value = "/cart")

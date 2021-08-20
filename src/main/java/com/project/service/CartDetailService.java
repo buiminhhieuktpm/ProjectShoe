@@ -1,9 +1,8 @@
 package com.project.service;
 
-import com.project.entity.CartDetail;
-
 import java.util.List;
-import java.util.Optional;
+
+import com.project.entity.CartDetail;
 
 public interface CartDetailService {
 
