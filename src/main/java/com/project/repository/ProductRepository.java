@@ -15,8 +15,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	@Query(value = "Select * from product where name Like %?1% ", nativeQuery = true)
 	Page<Product> findAllByName(String name, Pageable pageable);
 	
-	@Query(value = "select * from product where datediff(current_date,oncreate) <= 7 and is_enable = true LIMIT 8", nativeQuery = true)
-	List<Product> findNewProductByDate();
+// 	@Query("select p from Product p where datediff(current_date,onCreate) <= 7 and isEnable = true LIMIT 8")
+// 	List<Product> findNewProductByDate();
 	
 	@Query(value = "select * from product where brand_id = ?1 and is_enable = true  LIMIT ?2", nativeQuery = true)
 	List<Product> findByBrand(Integer id, int number);
