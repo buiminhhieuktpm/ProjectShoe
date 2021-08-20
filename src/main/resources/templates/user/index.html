@@ -61,7 +61,7 @@
             </div>
             <div class="row property__gallery" id="MixItUpCEC7D72">
             
-                <div class="col-lg-3 col-md-4 col-sm-6 mix women" th:each = "p : ${listNews}">
+<!--                 <div class="col-lg-3 col-md-4 col-sm-6 mix women" th:each = "p : ${listNews}">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"   th:style="'background-image: url(' + ${p.image1} + ');'">
                             <div class="label new">New</div>
@@ -84,7 +84,7 @@
                             <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                                                                
             </div>
         </div>
