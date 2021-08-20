@@ -103,8 +103,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> findNewProductByDate() {	
-// 		return productRepository.findNewProductByDate();
-		return null;
+		return productRepository.findNewProductByDate();
 	}
 
 	@Override
