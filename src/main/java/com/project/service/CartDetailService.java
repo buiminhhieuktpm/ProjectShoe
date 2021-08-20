@@ -14,4 +14,6 @@ public interface CartDetailService {
 
     void deleteById(Integer id);
 
+    void deleteCart(Integer id);
+
 }

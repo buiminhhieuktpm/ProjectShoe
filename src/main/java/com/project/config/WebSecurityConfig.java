@@ -1,5 +1,9 @@
 package com.project.config;
 
+import com.project.auth.CustomerUserDetailService;
+import com.project.security.CustomAccessDeniedHandler;
+import com.project.security.CustomAuthSuccessHandler;
+import com.project.security.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,11 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-
-import com.project.auth.CustomerUserDetailService;
-import com.project.security.CustomAccessDeniedHandler;
-import com.project.security.CustomAuthSuccessHandler;
-import com.project.security.CustomLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -67,10 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-
-//                .antMatchers("/admin/**").authenticated()
-//                .antMatchers("/admin/**").hasAuthority("ADMIN")
-
+                .antMatchers("/admin/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/login","/register").permitAll()
             .and()
             .formLogin()
@@ -95,6 +92,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/product/**");
+        web.ignoring().antMatchers("/test/**");
     }
 }

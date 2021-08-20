@@ -27,7 +27,7 @@ public class Brand {
     @Column
     private String name;
 
-    @Column(name = "isdisplay", columnDefinition = "BIT")
+    @Column(name = "isdisplay")
     private Boolean isDisplay;
 
     @Column

@@ -46,7 +46,7 @@
                 </a></li>
             </ul>
             <div class="offcanvas__logo">
-                <a href="./index.html"><img src="../web/img/logo.png" alt=""></a>
+                <a href="/"><img src="../web/img/logo.png" alt=""></a>
             </div>
             <div id="mobile-menu-wrap"></div>
             <div class="offcanvas__auth" sec:authorize="isAuthenticated()">
@@ -60,8 +60,8 @@
                 </form>
             </div>
             <div class="offcanvas__auth" sec:authorize="isAnonymous()">
-                <a href="#">Đăng nhập</a>
-                <a href="#">Đăng kí</a>
+                <a href="/login">Đăng nhập</a>
+                <a href="/register">Đăng kí</a>
             </div>
         </div>
         <!-- Offcanvas Menu End -->
@@ -74,24 +74,22 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="../web/index.html"><img src="../web/img/logo.png" alt=""></a>
+                        <a href="/"><img src="../web/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="../user/index.html">Home</a></li>    
+                            <li class="active"><a href="/">Home</a></li>
                             <li th:each="m : ${menu}">
                             <a th:href="@{'/product/page/1?category=' + ${m.id}}">[[${m.name}]]</a>
                             </li>
                             <li><a th:href="@{'/product/page/1'}">Shop</a>
                             <li><a href="#">Pages</a>                            
                                 <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                    <li><a href="./contact.html">Contact</a></li>
+                                    <li><a href="/cart">Shop Cart</a></li>
+                                    <li><a href="/checkout">Checkout</a></li>
+                                    <li><a href="/contact">Contact</a></li>
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
@@ -100,7 +98,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-                        <div class="header__right__auth">
+                        <div class="header__right__auth" style="display: flex">
                             <th:block sec:authorize="isAuthenticated()">
                                 <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">
                                     Wellcome, <span sec:authentication="name"></span>
@@ -115,11 +113,11 @@
 
                             <ul class="header__right__widget">
                                 <li><span class="icon_search search-switch"></span></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
+                                <li><a href="/wishlist"><span class="icon_heart_alt"></span>
+                                    <div class="tip">0</div>
                                 </a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
+                                <li><a href="/cart"><span class="icon_bag_alt"></span>
+                                    <div class="tip">0</div>
                                 </a></li>
                             </ul>
                         </div>
@@ -190,7 +188,7 @@
                         <ul>
                             <li><a href="#">Về chúng tôi</a></li>
                             <li><a href="#">Blogs</a></li>
-                            <li><a href="./contact.html">Liên hệ </a></li>
+                            <li><a href="/contact">Liên hệ </a></li>
                             <li><a href="#">Câu hỏi nhanh</a></li>
                         </ul>
                     </div>
@@ -199,7 +197,11 @@
                     <div class="footer__widget">
                         <h6>Tài khoản</h6>
                         <ul>
-                            <li><a href="#">Tài khoản của tôi</a></li>
+                            <th:block sec:authorize="isAuthenticated()">
+                            <li>
+                                <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">Tài khoản của tôi</a>
+                            </li>
+                            </th:block>
                             <li><a href="#">Tra cứu đơn hàng</a></li>
                             <li><a href="#">Checkout</a></li>
                             <li><a href="#">Wishlist</a></li>

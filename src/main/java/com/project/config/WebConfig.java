@@ -1,6 +1,9 @@
 package com.project.config;
 
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,6 +17,7 @@ public class WebConfig implements WebMvcConfigurer{
 //	public MenuHandleInterceptor menuHandleInterceptor() {
 //		return new MenuHandleInterceptor();
 //	}
+
 	@Autowired
 	private MenuHandleInterceptor menuHandleInterceptor;
 	
@@ -21,9 +25,10 @@ public class WebConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(menuHandleInterceptor).addPathPatterns("/**");
 	}
-	
-	
-	
-	
+
+	@Bean
+	public Module datatypeHibernateModule() {
+		return new Hibernate5Module();
+	}
 
 }

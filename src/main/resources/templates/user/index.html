@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head (title='Trang chá»§')"></head>
+<head th:replace="fragments_user :: html_head (title='Trang chủ')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -19,7 +19,6 @@
                 <div class="col-lg-6 p-0" th:with="firstBanner = ${listBanner[0]}">
                     <div class="categories__item categories__large__item set-bg" th:data-setbg="${firstBanner.image}" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
                         <div class="categories__text">
-
                             <h1 th:text="${firstBanner.title}"></h1>
                             <p th:text="${firstBanner.desciption}"></p>
                             <a th:href="${firstBanner.url}">Shop now</a>
@@ -69,7 +68,7 @@
                             <ul class="product__hover">
                                 <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                <li><a th:href="@{'/wishlist/' + ${p.id}}"><span class="icon_heart_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">

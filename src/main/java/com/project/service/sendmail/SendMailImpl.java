@@ -78,4 +78,32 @@ public class SendMailImpl implements SendMail {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void sendOrders(String toEmail, String body, String name) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+
+            helper.setFrom("contact@shoestore.com", "Shoe Store");
+            helper.setTo(toEmail);
+
+            String subject = "Đơn hàng";
+
+            String content = "<p>Xin chào, " + name + "</p>"
+                    + "<p>Cảm ơn bạn đã đặt hàng của chúng tôi.</p>"
+                    + "<p>Đây là thông tin đơn hàng của bạn : </p>"
+                    + body;
+
+            message.setContent(content,"text/html;charset=utf-8");
+            helper.setSubject(subject);
+            helper.setText(content, true);
+
+            this.javaMailSender.send(message);
+
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 }

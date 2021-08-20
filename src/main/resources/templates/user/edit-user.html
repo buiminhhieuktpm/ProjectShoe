@@ -33,7 +33,9 @@
                                 <input type="text" th:field="*{address}" name="address" placeholder="Địa chỉ" required>
                                 <button type="submit" class="site-btn" th:disabled="${error != null}">Cập nhật</button>
                             </form>
-
+                            <br>
+                            <a th:href="@{/user/change-password}">Đổi mật khẩu</a>
+                            <br>
                             <th:block th:if="${error != null}">
                                 <br>
                                 <h5>[[${error}]]</h5>

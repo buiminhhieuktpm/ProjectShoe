@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments_user :: html_head(title = 'Danh sách yêu thích')"></head>
+
+<body>
+	<!-- Offcanvas Menu Begin -->
+	<div th:replace="fragments_user :: menu_begin"></div>
+	<!-- Offcanvas Menu End -->
+
+	<!-- Header Section Begin -->
+	<header th:replace="fragments_user :: header"></header>
+	<!-- Header Section End -->
+
+	<!-- Breadcrumb Begin -->
+	<div
+		th:replace="fragments_user :: breadcrumb(href = '/', content = 'Danh sách yêu thích')"></div>
+	<!-- Breadcrumb End -->
+
+	<!-- Shop Cart Section Begin -->
+	<section class="shop-cart spad">
+		<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="shop__cart__table">
+							<table>
+								<thead>
+									<tr>
+										<th>Sản phẩm</th>
+										<th>Giá</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item : ${listWishlist}">
+										<td class="cart__product__item">
+											<img th:src="@{${item.product.image1}}" alt="">
+											<div class="cart__product__item__title">
+												<h6 th:text="${item.product.name}"></h6>
+											</div>
+										</td>
+										<td class="cart__price" th:text="${#numbers.formatDecimal(item.product.price, 3, 'COMMA', 0, 'POINT') + ' VNĐ'}"></td>								
+										<td class="cart__close">
+											<div sec:authorize="isAuthenticated()">
+												<a th:href="@{'/wishlist/remove/' + ${item.id}}">
+													<span class="icon_close"></span>
+												</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+		</div>
+	</section>
+	<!-- Shop Cart Section End -->
+
+	<div th:replace="fragments_user :: instagram"></div>
+
+	<footer th:replace="fragments_user :: footer"></footer>
+
+	<!-- Search Begin -->
+	<div class="search-model">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch">+</div>
+			<form class="search-model-form">
+				<input type="text" id="search-input" placeholder="Search here.....">
+			</form>
+		</div>
+	</div>
+	<!-- Search End -->
+
+	<div th:replace="fragments_user :: script"></div>
+</body>
+
+</html>

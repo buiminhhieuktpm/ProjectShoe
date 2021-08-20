@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: html_head(pageTitle='Cập nhật tài khoản')"/>
+<head th:replace="fragments :: html_head(pageTitle='Thông tin tài khoản')"/>
 
 <body>
 <!-- container section start -->
@@ -16,12 +16,11 @@
         <section class="wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Cập nhật tài khoản
+                    <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Thông tin tài khoản
                     </h3>
                     <ol class="breadcrumb" style="font-family: arial;">
-                        <li><a th:href="@{/admin}">Trang chủ</a></li>
-                        <li><a href="/admin/user">Tài khoản</a></li>
-                        <li>Cập nhật tài khoản</li>
+                        <li><a th:href="@{/admin/product}">Trang chủ</a></li>
+                        <li>Thông tin tài khoản</li>
                     </ol>
                 </div>
             </div>
@@ -31,11 +30,6 @@
                     <section class="panel">
                         <div class="panel-body">
                             <div class="form">
-                                <th:block th:if="${param.existed != null}">
-                                    <br>
-                                    <h5 style="text-align: center;">User Existed !</h5>
-                                </th:block>
-
                                 <th:block th:if="${param.invalid != null}">
                                     <br>
                                     <h5 style="text-align: center;">Field Not Empty !</h5>
@@ -96,7 +90,6 @@
                                                 class="required">*</span></label>
                                         <div class="col-lg-10">
                                             <input type="radio" name="isEnable" value="true" th:checked="${user.isEnable == true} ? ${true}"/> Hoạt động
-                                            <input type="radio" name="isEnable" value="false" th:checked="${user.isEnable == false} ? ${true}"/> Không hoạt động
                                         </div>
                                     </div>
 

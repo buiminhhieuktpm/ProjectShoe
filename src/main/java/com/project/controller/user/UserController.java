@@ -8,6 +8,8 @@ import com.project.service.UserService;
 import com.project.service.sendmail.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,16 +33,21 @@ public class UserController {
     private SendMail sendMail;
 
     @GetMapping("/{username}")
-    @Secured("ROLE_USER")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     public String getUser(@PathVariable String username, Model model) {
-        try {
-            User user = userService.findUserByUserNameAndIsEnable(username, true);
-            model.addAttribute("user", user);
-        }catch (CustomNotFoundException ex){
-            model.addAttribute("user", new User());
-            model.addAttribute("error", ex.getMessage());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!authentication.getPrincipal().equals("anonymousUser")){
+            try {
+                User user = userService.findUserByUserNameAndIsEnable(username, true);
+                model.addAttribute("user", user);
+                return "user/edit-user";
+            }catch (CustomNotFoundException ex){
+                model.addAttribute("user", new User());
+                model.addAttribute("error", ex.getMessage());
+                return "user/edit-user";
+            }
         }
-        return "user/edit-user";
+        return "redirect:http://localhost:8080/perform_logout";
     }
 
     @PostMapping
@@ -137,7 +144,7 @@ public class UserController {
     public String resetPassword(@PathVariable String token,Model model){
         if (userService.findUserByTokenAndIsEnable(token, true).isPresent()){
             model.addAttribute("token", token);
-            return "user/changepsw";
+            return "user/resetpassword";
         }
         return "redirect:/user/forgot-password?expired";
     }
@@ -151,5 +158,32 @@ public class UserController {
             userService.postUser(user);
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/change-password")
+    @Secured("ROLE_USER")
+    public String getPageChangePsw(){
+        return "user/changepsw";
+    }
+
+    @PostMapping("/update-password")
+    @Secured({"ROLE_USER"})
+    public String changePassword(@RequestParam(name = "pswOld") String pswOld, @RequestParam(name = "pswNew") String pswNew){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getPrincipal().equals("anonymousUser")){
+            try {
+                User user = userService.findUserByUserNameAndIsEnable(authentication.getName(), true);
+                if (passwordEncoder.matches(pswOld, user.getPassword())){
+                    user.setPassword(passwordEncoder.encode(pswNew));
+                    userService.postUser(user);
+                    return "redirect:http://localhost:8080/perform_logout";
+                }
+                return "redirect:/user/change-password?error";
+            } catch (CustomNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:http://localhost:8080/perform_logout";
     }
 }

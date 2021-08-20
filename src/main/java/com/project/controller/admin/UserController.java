@@ -1,6 +1,7 @@
 package com.project.controller.admin;
 
 import com.project.entity.User;
+import com.project.exception.CustomNotFoundException;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,20 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/admin/profile")
+    public String getAdmin(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getPrincipal().equals("anonymousUser")){
+            try {
+                User user = userService.findUserByUserNameAndIsEnable(authentication.getName(), true);
+                model.addAttribute("user",user);
+            } catch (CustomNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return "admin/profileadmin";
+    }
 
     @GetMapping("/admin/user")
     public String getPage(){
@@ -67,7 +84,6 @@ public class UserController {
         u.setAddress(user.getAddress());
         u.setIsEnable(user.getIsEnable());
 
-        System.out.println(u.getEmail()+" Chua truyen");
         User updateUser = userService.postUser(u);
         return ResponseEntity.ok(updateUser);
     }

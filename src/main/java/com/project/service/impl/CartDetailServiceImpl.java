@@ -34,5 +34,10 @@ public class CartDetailServiceImpl implements CartDetailService {
         cartDetailRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteCart(Integer id) {
+        cartDetailRepository.deleteCart(id);
+    }
+
 
 }

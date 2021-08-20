@@ -1,5 +1,6 @@
 package com.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,7 +54,7 @@ public class User {
     @Column(name = "lastlogined", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp lastLogined;
 
-    @Column(name = "is_enable", columnDefinition = "BIT")
+    @Column(name = "is_enable")
     private Boolean isEnable;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -62,9 +63,11 @@ public class User {
     private List<Role> roles = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
     private List<Orders> orders = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
     private List<Wishlist> wishlists = new ArrayList<>();
 
     @Transient

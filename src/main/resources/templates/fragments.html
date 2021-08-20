@@ -15,11 +15,11 @@
     <link href="/NiceAdmin/css/bootstrap-theme.css" rel="stylesheet">
     <!--external css-->
     <!-- font icon -->
-    <link href="/NiceAdmin/css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="/NiceAdmin/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/NiceAdmin/css/elegant-icons-style.css" rel="stylesheet"/>
+    <link href="/NiceAdmin/css/font-awesome.min.css" rel="stylesheet"/>
     <!-- Custom styles -->
     <link href="/NiceAdmin/css/style.css" rel="stylesheet">
-    <link href="/NiceAdmin/css/style-responsive.css" rel="stylesheet" />
+    <link href="/NiceAdmin/css/style-responsive.css" rel="stylesheet"/>
     <title>[[${pageTitle}]]</title>
 
     <!-- Bootstrap CSS -->
@@ -28,14 +28,14 @@
     <link href="NiceAdmin/css/bootstrap-theme.css" rel="stylesheet">
     <!--external css-->
     <!-- font icon -->
-    <link href="NiceAdmin/css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="NiceAdmin/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="NiceAdmin/css/elegant-icons-style.css" rel="stylesheet"/>
+    <link href="NiceAdmin/css/font-awesome.min.css" rel="stylesheet"/>
     <!-- full calendar css-->
-    <link href="NiceAdmin/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-    <link href="NiceAdmin/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <link href="NiceAdmin/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet"/>
+    <link href="NiceAdmin/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet"/>
     <!-- easy pie chart-->
     <link href="NiceAdmin/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css"
-        media="screen" />
+          media="screen"/>
     <!-- owl carousel -->
     <link rel="stylesheet" href="NiceAdmin/css/owl.carousel.css" type="text/css">
     <link href="NiceAdmin/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
@@ -43,9 +43,10 @@
     <link rel="stylesheet" href="NiceAdmin/css/fullcalendar.css">
     <link href="NiceAdmin/css/widgets.css" rel="stylesheet">
     <link href="NiceAdmin/css/style.css" rel="stylesheet">
-    <link href="NiceAdmin/css/style-responsive.css" rel="stylesheet" />
+    <link href="NiceAdmin/css/style-responsive.css" rel="stylesheet"/>
     <link href="NiceAdmin/css/xcharts.min.css" rel=" stylesheet">
     <link href="NiceAdmin/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- javascripts -->
     <script src="NiceAdmin/js/jquery.js"></script>
@@ -113,102 +114,87 @@
 </head>
 
 <body>
-    <!--header start-->
-    <header class="header dark-bg" th:fragment="bar">
-        <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
-      </div>
+<!--header start-->
+<header class="header dark-bg" th:fragment="bar">
+    <div class="toggle-nav">
+        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom">
+            <i class="icon_menu"></i></div>
+    </div>
 
-      <!--logo start-->
-      <a th:href="@{/templates/admin}" class="logo">Bụi <span class="lite">Sneaker</span></a>
-      <!--logo end-->
+    <!--logo start-->
+    <a th:href="@{/templates/admin}" class="logo">Bụi <span class="lite">Sneaker</span></a>
+    <!--logo end-->
 
-      
-
-      <div class="top-nav notification-row">
+    <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
         <ul class="nav pull-right top-menu">
 
-          <!-- task notificatoin start -->
-          
-          <!-- task notificatoin end -->
-          <!-- inbox notificatoin start-->
-          
-          <!-- inbox notificatoin end -->
-          <!-- alert notification start-->
-          
-          <!-- alert notification end-->
-          <!-- user login dropdown start-->
-          <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                                
-                            </span>
-                            <span class="username">ADMIN</span>
-                            <b class="caret"></b>
-                        </a>
-            <ul class="dropdown-menu extended logout">
-              <div class="log-arrow-up"></div>
-              <li class="eborder-top">
-                <a th:href="@{/home/acount/1}"><i class="icon_profile"></i> My Profile</a>
-              </li>
-              <li>
-                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
-              </li>
-              <li>
-                <a th:href="@{/logout}"><i class="icon_key_alt"></i> Log Out</a>
-              </li>
-
-            </ul>
-          </li>
-          <!-- user login dropdown end -->
+            <li class="dropdown">
+                <button type="button" data-toggle="dropdown" class="dropdown-toggle">
+                    Wellcome, <b><span sec:authentication="name">Username</span></b>
+                </button>
+                <ul class="dropdown-menu extended logout">
+                    <div class="log-arrow-up"></div>
+                    <li class="eborder-top">
+<!--                        <a th:href="@{/admin/{username}(username = ${#authentication.getPrincipal().getUsername()})}"><i-->
+<!--                                class="icon_profile"></i>Thông tin tài khoản</a>-->
+                        <a th:href="@{/admin/profile}"><i
+                                class="icon_profile"></i>Thông tin tài khoản</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/perform_logout}"><i class="icon_key_alt"></i> Đăng xuất</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- user login dropdown end -->
         </ul>
         <!-- notificatoin dropdown end-->
-      </div>
-    </header>
-    <!--header end-->
+    </div>
+</header>
+<!--header end-->
 
-    <!--sidebar start-->
-    <aside th:fragment="menu">
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu">
-                <li class="active"><a class="" th:href="@{/templates/admin}"> <i class="icon_house_alt"></i>
-                        <span>Dashboard</span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/product}"> <i class="icon_bag_alt"></i> <span
-                            style="font-family: arial;">Sản
-                            phẩm</span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/category}"> <i class="icon_book_alt"></i> <span
-                            style="font-family: arial;">Danh
-                            mục</span>
-                    </a></li>
-                    <li class="active"><a class="" th:href="@{/admin/banner}"> <i class="icon_image"></i> <span
-                            style="font-family: arial;">Banner
-                          </span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/coupon}"> <i class="arrow_down_alt"></i> <span
-                            style="font-family: arial;">Mã giảm giá</span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/user}"> <i class="icon_group"></i> <span
-                            style="font-family: arial;">Thành
-                            viên</span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/order}"> <i class="icon_documents"></i> <span
-                            style="font-family: arial;">Đơn
-                            hàng</span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/statistical}"> <i class=" icon_datareport_alt"></i> <span
-                            style="font-family: arial;">Thống kê</span>
-                    </a></li>
-                <li class="active"><a class="" th:href="@{/admin/month}"> <i class="icon_calendar"></i> <span
-                            style="font-family: arial;">Thống kê theo tháng</span>
-                    </a></li>
-            </ul>
-            <!-- sidebar menu end-->
-        </div>
-    </aside>
+<!--sidebar start-->
+<aside th:fragment="menu">
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            <li class="active"><a class="" th:href="@{/admin/product}"> <i class="icon_house_alt"></i>
+                <span>Dashboard</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/product}"> <i class="icon_bag_alt"></i> <span
+                    style="font-family: arial;">Sản phẩm</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/category}"> <i class="icon_book_alt"></i> <span
+                    style="font-family: arial;">Danh mục</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/brand}"> <i class="icon_book_alt"></i> <span
+                    style="font-family: arial;">Nhãn hiệu</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/banner}"> <i class="icon_image"></i> <span
+                    style="font-family: arial;">Banner</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/coupon}"> <i class="arrow_down_alt"></i> <span
+                    style="font-family: arial;">Mã giảm giá</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/orders}"> <i class="icon_documents"></i> <span
+                    style="font-family: arial;">Đơn hàng</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/user}"> <i class="icon_group"></i> <span
+                    style="font-family: arial;">Tài khoản</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/contact}"> <i class="icon_documents"></i> <span
+                    style="font-family: arial;">Liên hệ</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/}"> <i class=" icon_datareport_alt"></i> <span
+                    style="font-family: arial;">Thống kê</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/month}"> <i class="icon_calendar"></i> <span
+                    style="font-family: arial;">Thống kê theo tháng</span>
+            </a></li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
 </body>
 
 </html>

@@ -14,99 +14,73 @@
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
-    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Checkout')"></div>
+    <div th:replace="fragments_user :: breadcrumb(href = '/checkout', content = 'Checkout')"></div>
     <!-- Breadcrumb End -->
 
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
-
-            <form action="#" class="checkout__form">
+            <th:block th:if="${param.code != null}">
+                <input type="hidden" id="code" th:value="${param.code[0]}">
+            </th:block>
+            <th:block th:unless="${param.code != null}">
+                <input type="hidden" id="code" value="">
+            </th:block>
+            <form id="formSubmit" action="#" class="checkout__form" th:object="${user}">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5>Thông tin hóa đơn</h5>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
-                                    <p>Họ <span>*</span></p>
-                                    <input type="text">
+                                    <p>Tên người nhận<span>*</span></p>
+                                    <input type="text" id="name" name="name" th:value="${user.fullName}" placeholder="Nhập tên của bạn" required>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Tên <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-
                                 <div class="checkout__form__input">
                                     <p>Địa chỉ <span>*</span></p>
-                                    <input type="text" placeholder="Phố">
-                                    <input type="text" placeholder="Địa chỉ nhà">
+                                    <input type="text" id="address" name="address" th:value="${user.address}" placeholder="Địa chỉ giao hàng" required>
                                 </div>
-                                <div class="checkout__form__input">
-                                    <p>Tỉnh/Thành phố <span>*</span></p>
-                                    <input type="text">
-                                </div>
-
-
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Điện thoại <span>*</span></p>
-                                    <input type="text">
+                                    <input type="phone" id="phone" name="phone" th:value="${user.phone}" placeholder="Nhập số điện thoại">
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Email <span>*</span></p>
-                                    <input type="text">
+                                    <input type="email" id="email" name="email" th:value="${user.email}"  placeholder="Nhập email của bạn" required>
                                 </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="checkout__form__checkbox">
-                                    <label for="acc">
-                                        Tạo tài  khoản?
-                                        <input type="checkbox" id="acc">
-                                        <span class="checkmark"></span>
-                                    </label>
-
-                                </div>
-                                <div class="checkout__form__input">
-                                    <p>Mật khẩu <span>*</span></p>
-                                    <input type="text">
-                                </div>
-
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="checkout__order">
-                            <h5>Hàng của bạn</h5>
+                            <h5>Sản phẩm của bạn</h5>
                             <div class="checkout__order__product">
                                 <ul>
                                     <li>
                                         <span class="top__text">Sản phẩm</span>
                                         <span class="top__text__right">Tổng</span>
                                     </li>
-                                    <li>01. Dom Pérignon Rose - 750ml <span>10,800,000 VNĐ</span></li>
-                                    <li>02. Dom Pérignon Blanc - 750ml<br />  <span>4,900,000 VNĐ</span></li>
-                                    <li>03. Moët & Chandon Imperial B Box - 750ml <span>1,450,000 VNĐ</span></li>
-                                    <li>04. MOET Rosé Imperial C6 Box - 750ml <span>1,890,000 VNĐ</span></li>
+                                    <th:block th:unless="${#lists.isEmpty(listCart)}">
+                                        <th:block th:each="cart : ${listCart}">
+                                            <li>[[${cart.product.name}]] - [[${cart.amount}]] <span th:text="${cart.price * cart.amount}">VNĐ</span></li>
+                                        </th:block>
+                                    </th:block>
                                 </ul>
                             </div>
                             <div class="checkout__order__total">
                                 <ul>
-                                    <li>Trừ <span>5,000,000VNĐ</span></li>
-                                    <li>Tổng <span>14,040,000VNĐ</span></li>
+                                    <li>Giá khuyến mãi <span id="totalsale">0</span></li>
+                                    <li>Tổng <span id="totalcost">[[${totalCost}]]</span></li>
                                 </ul>
                             </div>
                             <div class="checkout__order__widget">
-
-
                             </div>
-                            <button type="submit" class="site-btn">Đặt hàng</button>
+                            <th:block th:if="${#lists.isEmpty(listCart)}">
+                                <button type="button" id="btnOrder" class="site-btn" style="pointer-events: none;">Đặt hàng</button>
+                            </th:block>
+                            <th:block th:unless="${#lists.isEmpty(listCart)}">
+                                <button type="button" id="btnOrder" class="site-btn">Đặt hàng</button>
+                            </th:block>
                         </div>
                     </div>
                 </div>
@@ -131,6 +105,94 @@
     <!-- Search End -->`
 
     <div th:replace="fragments_user :: script"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $('#btnOrder').click(function (e){
+            e.preventDefault();
+            let _name = $('#name').val().trim();
+            let _address = $('#address').val().trim();
+            let _email = $('#email').val().trim();
+            let _phone = $('#phone').val().trim();
+            if (checkInput(_name, _address, _phone, _email)){
+                var data = {};
+                var formData = $('#formSubmit').serializeArray();
+                $.each(formData, function (i, v) {
+                    data["" + v.name + ""] = v.value;
+                });
+                let code = $('#code').val();
+                checkoutOrder(data,code);
+            }
+        });
+
+        function checkoutOrder(data,code){
+            if (code != ''){
+                code = `/${code}`;
+            }
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8080/api/checkout" + code,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (result) {
+                    if (result.name != null){
+                        alert("Thanh toán đơn hàng thành công");
+                        window.location.href = "http://localhost:8080/product";
+                    }
+                },
+                error: function (e){
+                    alert("Thanh toán không thành công")
+                    console.log("Error");
+                }
+            });
+        }
+
+        let code = $('#code').val();
+        if (code.trim() !== '' && code.trim().length > 0){
+            checkCoupon(code);
+        }
+
+        function checkCoupon(code){
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "http://localhost:8080/api/coupon/" + code,
+                success: function (result) {
+                    if (result.id != ''){
+                        let totalStart = $('#totalcost').text();
+                        let totalEnd = totalStart - (totalStart * (result.percent / 100));
+                        $('#totalsale').text(totalEnd);
+                    }
+                },
+                error: function (e){
+                    alert("Mã giảm giá không hợp lệ")
+                }
+            });
+        }
+
+        function checkInput(name, address, phone, email) {
+            if (name == '') {
+                alert('Tên không hợp lệ');
+                document.getElementById('name').focus();
+                return false;
+            } else if (address == '') {
+                alert('Địa chỉ không hợp lệ');
+                document.getElementById('address').focus();
+                return false;
+            } else if (phone == '' || phone.length > 11 || phone.length < 10) {
+                alert('Số điện thoại không hợp lệ');
+                document.getElementById('phone').focus();
+                return false;
+            } else if (email == '') {
+                alert('Email không hợp lệ');
+                document.getElementById('email').focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
 
 </body>
 </html>

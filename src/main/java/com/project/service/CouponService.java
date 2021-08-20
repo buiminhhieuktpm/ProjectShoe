@@ -1,7 +1,5 @@
 package com.project.service;
 
-
-
 import com.project.entity.Coupon;
 
 import java.util.List;
@@ -27,6 +25,10 @@ public interface CouponService {
 
     Coupon save(Coupon entity);
 
-    public Optional<Coupon> findByCode(String code);
+    Optional<Coupon> findByCode(String code);
+
+    Optional<Coupon> findCouponByCode(String code);
+
+    void updateAmount(Integer amount,Integer id);
 
 }
