@@ -59,7 +59,7 @@ public class BaseController {
 
 	@GetMapping("/")
 	public String homePage(Model model, HttpSession session) {
-		model.addAttribute("listNews", productService.findNewProductByDate());
+// 		model.addAttribute("listNews", productService.findNewProductByDate());
 		model.addAttribute("listNikeShoes", productService.findByBrand(2, 8));
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
